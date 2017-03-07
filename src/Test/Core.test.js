@@ -45,6 +45,49 @@ describe('app logic', () => {
       }).toJS());
     });
 
+    /* The winning entry from the current vote should be kept,
+    and added back to the end of the entries, so that it will later be paired with something else.
+    The losing entry is thrown away. If there is a tie, both entries are kept. */
+    it('puts winner of current vote back to entries', () => {
+      const state = Map({
+        vote: Map({
+          pair: List.of('Gladiator', 'Blade Runner'),
+          tally: Map({
+            'Gladiator': 4,
+            'Blade Runner': 2
+          })
+        }),
+        entries: List.of('Sunshine', 'Millions', 'Hangover')
+      });
+      const nextState = next(state);
+      expect(nextState).toEqual(Map({
+        vote: Map({
+          pair: List.of('Sunshine', 'Millions')
+        }),
+        entries: List.of('Hangover', 'Gladiator')
+      }).toJS());
+    });
+
+    it('puts both tied back into entries', () =>{
+      const state = Map({
+        vote: Map({
+          pair: List.of('Avengers', 'X-Men'),
+          tally: Map({
+            'Avengers': 1,
+            'X-Men': 1
+          })
+        }),
+        entries: List.of('Deadpool', 'Suicide Squad', 'Dr Strange')
+      });
+      const nextState = next(state);
+      expect(nextState).toEqual(Map({
+        vote: Map({
+          pair: List.of('Deadpool', 'Suicide Squad')
+        }),
+        entries: List.of('Dr Strange', 'Avengers', 'X-Men')
+      }).toJS());
+    });
+
   });
 
   /* check if for every voete there's a tally */
