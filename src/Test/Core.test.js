@@ -88,6 +88,24 @@ describe('app logic', () => {
       }).toJS());
     });
 
+    /* if only one vote remains declare a winner */
+    it('marks the winner when there is only one entry', () =>{
+      const state= Map({
+        vote: Map({
+          pair: List.of('Trainspotting', '28 Days Later'),
+          tally: Map({
+            'Trainspotting': 4,
+            '28 Days Later': 2
+          })
+        }),
+        entries: List()
+      });
+      const nextState = next(state);
+      expect(nextState).toEqual(Map({
+        winner: 'Trainspotting'
+      }))
+    });
+
   });
 
   /* check if for every voete there's a tally */
