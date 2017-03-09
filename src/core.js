@@ -5,6 +5,9 @@
 */
 import {List, Map} from 'immutable';
 
+//in case reducers are called with undefined state
+export const INITIAL_STATE = Map();
+
 export function setEntries(state, entries) {
   return state.set('entries', List(entries));
 }
