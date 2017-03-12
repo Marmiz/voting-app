@@ -3,7 +3,7 @@
 * setEntries can just set an entries key in the state Map
 * and set the value as the given List of entries.
 */
-import {List, Map} from 'immutable';
+import {List, Map, fromJS} from 'immutable';
 
 //in case reducers are called with undefined state
 export const INITIAL_STATE = Map();
@@ -38,9 +38,9 @@ export function next(state){
   }
 }
 
-export function vote(state, entry) {
-  return state.updateIn(
-    ['vote', 'tally', entry],
+export function vote(voteState, entry) {
+  return voteState.updateIn(
+    ['tally', entry],
     0,
     tally => tally + 1
   );

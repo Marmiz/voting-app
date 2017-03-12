@@ -113,44 +113,32 @@ describe('app logic', () => {
 
     it('creates a tally for the vote entry', () =>{
       const state = Map({
-        vote: Map({
-          pair: List.of('Trainspotting', '28 Days Later')
-        }),
-        entries: List()
+        pair: List.of('Trainspotting', '28 Days Later')
       });
       const nextState = vote(state, 'Trainspotting');
       expect(nextState).toEqual(Map({
-        vote: Map({
-          pair: List.of('Trainspotting', '28 Days Later'),
-          tally: Map({
-            'Trainspotting' : 1
-          })
-        }),
-        entries: List()
+        pair: List.of('Trainspotting', '28 Days Later'),
+        tally: Map({
+          'Trainspotting': 1
+        })
       }));
     });
 
     it('add to the existing tally for the voted entry', () =>{
       const state = Map({
-        vote: Map({
           pair: List.of('Trainspotting', 'La-La-Land'),
           tally: Map({
             'Trainspotting': 3,
             'La-La-Land': 2
           })
-        }),
-        entries: List()
       });
       const nextState = vote(state, 'La-La-Land');
       expect(nextState).toEqual(Map({
-        vote: Map({
           pair: List.of('Trainspotting', 'La-La-Land'),
           tally: Map({
             'Trainspotting': 3,
             'La-La-Land': 3
           })
-        }),
-        entries: List()
       }));
     });
 
