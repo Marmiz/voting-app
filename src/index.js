@@ -7,7 +7,14 @@ import startServer from './server';
 import makeStore from './store';
 
 export const store = makeStore();
-startServer();
+startServer(store);
+
+// get a starting point for our app.
+store.dispatch({
+  type: 'SET_ENTRIES',
+  entries: require('./entries.json')
+});
+store.dispatch({type: 'NEXT'});
 
 // ReactDOM.render(
 //   <App />,
