@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent} from 'react';
+import Winner from './Winner';
+import Vote from './Vote';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
-  getPair(){
-    return this.props.pair || [];
-  }
+class App extends PureComponent {
+
+
   render() {
     return (
       <div className="App">
@@ -14,11 +15,10 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-        {this.getPair().map(entry =>
-          <button key={entry}>
-          <h1>{entry}</h1>
-          </button>
-        )}
+        {this.props.winner ?
+          <Winner ref="winner" winner={this.props.winner} /> :
+          <Vote {...this.props} />
+        }
         </p>
       </div>
     );
