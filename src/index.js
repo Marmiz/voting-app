@@ -2,9 +2,16 @@
   import React from 'react';
   import ReactDOM from 'react-dom';
   import App from './App';
+  import Root from './Root';
+  // import Voting from './components/Voting';
   import './index.css';
-  import startServer from './server';
-  import makeStore from './store';
+  // import startServer from './server';
+  // import makeStore from './store';
+  import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+  // var routes = require('./routes');
+  import { browserHistory } from 'react-router';
+
+  import Routes from './routes';
 
   // export const store = makeStore();
   // startServer(store);
@@ -19,6 +26,6 @@
   // store.dispatch({type: 'NEXT'});
 
   ReactDOM.render(
-    <App pair={pair} hasVoted="Trainspotting"/>,
+    <Routes history={browserHistory} />,
     document.getElementById('root')
   );

@@ -1,10 +1,17 @@
-import React, { Component, PureComponent} from 'react';
-import Winner from './Winner';
-import Vote from './Vote';
+import React, {PureComponent} from 'react';
+import Voting from './components/Voting';
+import {List} from 'immutable';
 import logo from './logo.svg';
 import './App.css';
+import {Link} from 'react-router';
+
 
 class App extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {pair: ['Trainspotting', 'Nemo'], hasVoted: 'Trainspotting'};
+  }
 
 
   render() {
@@ -15,10 +22,10 @@ class App extends PureComponent {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-        {this.props.winner ?
-          <Winner ref="winner" winner={this.props.winner} /> :
-          <Vote {...this.props} />
-        }
+          <Voting pair={this.state.pair} hasVoted={this.state.hasVoted}/>
+        </p>
+        <p>
+          <Link to="/test">Test</Link>
         </p>
       </div>
     );
