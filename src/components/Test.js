@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 
-class Test extends PureComponent {
+class Test extends Component {
   render(){
     return (
-      <div>
+      <div className="test">
         <h1>Test</h1>
       </div>
     )
