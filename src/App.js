@@ -25,7 +25,7 @@ class App extends PureComponent {
           <Voting pair={this.state.pair} hasVoted={this.state.hasVoted}/>
         </p>
         <p>
-          <Link to="/test">Test</Link>
+          <Link to="/results">Results</Link>
         </p>
       </div>
     );
