@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import Voting from './components/Voting';
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import logo from './logo.svg';
 import './App.css';
 import {Link} from 'react-router';
@@ -10,9 +10,11 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {pair: ['Trainspotting', 'Nemo'], hasVoted: 'Trainspotting'};
+    this.state = {
+      pair: ['Trainspotting', 'Nemo'],
+      hasVoted: 'Trainspotting',
+    };
   }
-
 
   render() {
     return (
@@ -27,6 +29,7 @@ class App extends PureComponent {
         <p>
           <Link to="/results">Results</Link>
         </p>
+
       </div>
     );
   }
