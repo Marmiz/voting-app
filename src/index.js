@@ -9,12 +9,32 @@
   // import makeStore from './store';
   import {Router, Route, hashHistory, IndexRoute} from 'react-router';
   // var routes = require('./routes');
+  import io from 'socket.io-client';
   import { browserHistory } from 'react-router';
+  import {createStore} from 'redux';
+  import reducer from './utils/reducer';
+  import {Provider} from 'react-redux';
 
   import Routes from './routes';
 
   // export const store = makeStore();
   // startServer(store);
+
+  const store = createStore(reducer);
+  store.dispatch({
+  type: 'SET_STATE',
+  state: {
+    vote: {
+      pair: ['Sunshine', '28 Days Later'],
+      tally: {Sunshine: 2}
+    }
+  }
+});
+
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
+socket.on('state', state =>
+  store.dispatch({type: 'SET_STATE', state})
+);
 
   const pair = ['Trainspotting', '28 Days Later'];
 
@@ -26,6 +46,8 @@
   // store.dispatch({type: 'NEXT'});
 
   ReactDOM.render(
-    <Routes history={browserHistory} />,
+    <Provider store={store}>
+    <Routes history={browserHistory} />
+    </Provider>,
     document.getElementById('root')
   );

@@ -3,18 +3,19 @@ import Voting from './components/Voting';
 import {List, Map} from 'immutable';
 import logo from './logo.svg';
 import './App.css';
+import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      pair: ['Trainspotting', 'Nemo'],
-      hasVoted: 'Trainspotting',
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //
+  //   this.state = {
+  //     pair: ['Trainspotting', 'Nemo'],
+  //     hasVoted: 'Trainspotting',
+  //   };
+  // }
 
   render() {
     return (
@@ -36,3 +37,13 @@ class App extends PureComponent {
 }
 
 export default App;
+
+function mapStateToProps(state) {
+  return {
+    pair: state.getIn(['vote', 'pair']),
+    hasVoted: state.get('hasVoted'),
+    winner: state.get('winner')
+  };
+}
+
+export const VotingContainer = connect(mapStateToProps)(Voting);

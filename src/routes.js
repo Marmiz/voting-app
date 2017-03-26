@@ -3,14 +3,16 @@ import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 
 import App from './App';
+import {VotingContainer} from './App'
 import Root from './Root';
-import Results from './components/Results';
+// import Results from './components/Results';
+import {ResultsContainer} from './components/Results';
 
 const Routes = (props) => (
  <Router {...props}>
    <Route path="/" component={Root}>
-        <IndexRoute component={App} />
-       <Route path="/results" component={Results} something="foo"/>
+        <IndexRoute component={VotingContainer} />
+       <Route path="/results" component={ResultsContainer} something="foo"/>
    </Route>
  </Router>
 );
