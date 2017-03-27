@@ -9,7 +9,7 @@ import {List, Map, fromJS} from 'immutable';
 export const INITIAL_STATE = Map();
 
 export function setEntries(state, entries) {
-  return state.set('entries', List(entries));
+  return state.set('entries', new List(entries));
 }
 
 // concatenate the "winners" of the current vote to the entries
@@ -32,16 +32,19 @@ export function next(state){
                 .set('winner', entries.first());
   }else{
     return state.merge({
-      vote: Map({pair: entries.take(2)}),
+      vote: new Map({pair: entries.take(2)}),
       entries: entries.skip(2)
-    }).toJS();
+    });//.toJS();
   }
 }
 
 export function vote(voteState, entry) {
-  return voteState.updateIn(
-    ['tally', entry],
-    0,
-    tally => tally + 1
-  );
+  if (voteState.get('pair').includes(entry)) {
+    return voteState.updateIn(
+      ['tally', entry],
+      0,
+      tally => tally + 1
+    );
+  }
+  return (voteState);
 }

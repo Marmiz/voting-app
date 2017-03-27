@@ -5,8 +5,7 @@
   import Root from './Root';
   // import Voting from './components/Voting';
   import './index.css';
-  // import startServer from './server';
-  // import makeStore from './store';
+
   import {Router, Route, hashHistory, IndexRoute} from 'react-router';
   // var routes = require('./routes');
   import io from 'socket.io-client';
@@ -16,9 +15,6 @@
   import {Provider} from 'react-redux';
 
   import Routes from './routes';
-
-  // export const store = makeStore();
-  // startServer(store);
 
   const store = createStore(reducer);
   store.dispatch({
@@ -36,14 +32,6 @@ socket.on('state', state =>
   store.dispatch({type: 'SET_STATE', state})
 );
 
-  const pair = ['Trainspotting', '28 Days Later'];
-
-  // get a starting point for our app.
-  // store.dispatch({
-  //   type: 'SET_ENTRIES',
-  //   entries: require('./entries.json')
-  // });
-  // store.dispatch({type: 'NEXT'});
 
   ReactDOM.render(
     <Provider store={store}>
