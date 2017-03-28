@@ -10,27 +10,35 @@
   // var routes = require('./routes');
   import io from 'socket.io-client';
   import { browserHistory } from 'react-router';
-  import {createStore} from 'redux';
+  import {createStore, applyMiddleware} from 'redux';
   import reducer from './utils/reducer';
   import {Provider} from 'react-redux';
+  import { setState } from './utils/actions-creator';
+  import remoteActionMiddleware from './utils/remote_action_middleware';
 
   import Routes from './routes';
 
-  const store = createStore(reducer);
-  store.dispatch({
-  type: 'SET_STATE',
-  state: {
-    vote: {
-      pair: ['Sunshine', '28 Days Later'],
-      tally: {Sunshine: 2}
-    }
-  }
-});
+//   const store = createStore(reducer);
+//   store.dispatch({
+//   type: 'SET_STATE',
+//   state: {
+//     vote: {
+//       pair: ['Sunshine', '28 Days Later'],
+//       tally: {Sunshine: 2}
+//     }
+//   }
+// });
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`);
 socket.on('state', state =>
-  store.dispatch({type: 'SET_STATE', state})
+  store.dispatch(setState(state))
 );
+
+const createStoreWithMiddleware = applyMiddleware(
+  remoteActionMiddleware(socket)
+)(createStore);
+const store = createStoreWithMiddleware(reducer);
+
 
 
   ReactDOM.render(

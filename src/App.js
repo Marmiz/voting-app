@@ -5,6 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import * as actionCreators from './utils/actions-creator';
 
 
 class App extends PureComponent {
@@ -46,4 +47,4 @@ function mapStateToProps(state) {
   };
 }
 
-export const VotingContainer = connect(mapStateToProps)(Voting);
+export const VotingContainer = connect(mapStateToProps, actionCreators)(Voting);
