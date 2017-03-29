@@ -31,7 +31,6 @@ class App extends PureComponent {
         <p>
           <Link to="/results">Results</Link>
         </p>
-
       </div>
     );
   }

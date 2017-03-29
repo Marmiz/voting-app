@@ -12,7 +12,7 @@ const Routes = (props) => (
  <Router {...props}>
    <Route path="/" component={Root}>
         <IndexRoute component={VotingContainer} />
-       <Route path="/results" component={ResultsContainer} something="foo"/>
+       <Route path="/results" component={ResultsContainer} />
    </Route>
  </Router>
 );

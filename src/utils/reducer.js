@@ -15,22 +15,31 @@ function vote(state, entry) {
   return state;
 }
 
-function resetVote(state) {
-  const currentRound = state.getIn(['vote', 'round']);
-  const hasVoted = state.get('hasVoted');
-  const roundVoted = state.get('roundVoted');
-  if (hasVoted && currentRound !== roundVoted) {
-    return state
-      .remove('roundVoted')
-      .remove('hasVoted');
+// function resetVote(state) {
+//   const currentRound = state.getIn(['vote', 'round']);
+//   const hasVoted = state.get('hasVoted');
+//   const roundVoted = state.get('roundVoted');
+//   if (hasVoted && currentRound !== roundVoted) {
+//     return state
+//       .remove('roundVoted')
+//       .remove('hasVoted');
+//   }
+//   return state;
+// }
+
+function resetVote(state, mergedState) {
+  const oldPair = state.getIn(['vote', 'pair'], List());
+  const newPair = mergedState.getIn(['vote', 'pair'], List());
+  if (mergedState.get('hasVoted') && !oldPair.equals(newPair)) {
+    return mergedState.remove('hasVoted');
   }
-  return state;
+  return mergedState;
 }
 
 export default function(state = Map(), action) {
   switch (action.type) {
   case 'SET_STATE':
-    return resetVote(setState(state, action.state));
+    return resetVote(state, setState(state, action.state));
   case 'VOTE':
     return vote(state, action.entry);
   }
